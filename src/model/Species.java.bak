@@ -4,11 +4,11 @@ public class Species{
 	
 	private String name;
 	private String scientificName;
-	private String type;
-	private boolean migratory;
+	private SpeciesType type;
+	private String migratory;
 	
 	//Constructor
-	public Species(String name, String scientificName, String type, boolean migratory){
+	public Species(String name, String scientificName, SpeciesType type, String migratory){
 		this.name=name;
 		this.scientificName=scientificName;
 		this.type=type;
@@ -22,10 +22,10 @@ public class Species{
 	public String getScientificName(){
 		return scientificName;
 	}
-	public String getType(){
+	public SpeciesType getType(){
 		return type;
 	}
-	public boolean getMigratory(){
+	public String getMigratory(){
 		return migratory;
 	}
 	
@@ -36,14 +36,11 @@ public class Species{
 	public void setScientificName(String scientificName){
 		this.scientificName=scientificName;
 	}
-	public void setType(String type){
-		this.type=type;
-	}
-	public void setMigratory(boolean migratory){
+	public void setMigratory(String migratory){
 		this.migratory=migratory;
 	}
 	
 	public String toString(){
-		return "Species Name: " + name + "\n" + "Scientific Name: " + scientificName + "\n" + "Type: " + type + "\n" + "Migratory?: " + migratory;
+		return "\n***Species in this wetland***\nSpecies Name: " + name + "\n" + "Scientific Name: " + scientificName + "\n" + "Type: " + type + "\n" + "Migratory: " + migratory + "\n";
 	}
 }

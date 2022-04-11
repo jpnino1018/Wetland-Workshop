@@ -11,12 +11,12 @@ public class Event{
 	private Date date;
 
 	//Constructor
-	public Event(String type, String host, String description, double price, Date date){
+	public Event(String type, String host, String description, double price, int day, int month, int year){
 		this.type=type;
 		this.host=host;
 		this.description=description;
 		this.price=price;
-		this.date=date;
+		this.date=new Date(day, month, year);
 	}
 	
 	//Getters

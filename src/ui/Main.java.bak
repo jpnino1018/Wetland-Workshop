@@ -10,7 +10,7 @@ public class Main{
 	private Controller control;
 	
 	public Main(){
-		control = new Controller("Na");
+		control = new Controller("NA");
 		sc = new Scanner(System.in);
 	}
 	
@@ -39,7 +39,11 @@ public class Main{
 		"To add a species to certain wetland press 2\n"+
 		"To add an event to certain wetland press 3\n"+
 		"To show all Wetlands press 4\n"+
-		"To exit press 0/n"
+		"To show the wetland with the least number of flora press 5\n"+
+		"To show the wetland with the most animals press 6\n"+
+		"To search for wetlands containing certain species press 7\n"+
+		"To show the number of maintenances for each Wetland press 8\n"+
+		"To exit press 0\n"
 		);
 		option=sc.nextInt();
 		sc.nextLine();
@@ -48,7 +52,7 @@ public class Main{
 	
 	
 	/** This method executes a different proccess depending on the user's choice.
-	*@param option
+	*@param option : Number chosen by the user
 	*/
 	public void executeOperation(int option){
 		switch(option) {
@@ -66,6 +70,18 @@ public class Main{
 			break;
 		case 4:
 			showWetland();
+			break;
+		case 5:
+			showLeastFlora();
+			break;
+		case 6:
+			showMostAnimals();
+			break;
+		case 7:
+			showWetlandsWithSpecies();
+			break;
+		case 8:
+			showAllMaintenances();
 			break;
 		default:
 			System.out.println("Error, Please type a valid option");
@@ -91,6 +107,10 @@ public class Main{
 			System.out.println("Set area in km2");
 			area=sc.nextInt();
 			
+			int maintenance;
+			System.out.println("How many maintenances does the wetland get per year?");
+			maintenance=sc.nextInt();
+			
 			double percentage;
 			System.out.println("Set the percentage of acomplishment");
 			percentage=sc.nextDouble();
@@ -107,7 +127,8 @@ public class Main{
 			System.out.println("Is the wetland Protected or Vulnerable?");
 			protection=sc.next();
 			
-			control.addWetland(name, picture, area, percentage, access, zone, protection);
+			control.addWetland(name, picture, area, maintenance, percentage, access, zone, protection);
+			System.out.println("Wetland by the name of " + name +" has been created");
 		} else {
 			
 			System.out.println("No space left to add more wetlands");
@@ -146,7 +167,8 @@ public class Main{
 			System.out.println("Is the species migratory?");
 			migratory=sc.next();
 			
-			control.addSpeciesToWetland(name, scientificName, option, migratory);
+			control.addSpeciesToWetland(wetlandName, name, scientificName, option, migratory);
+			System.out.println("Species has been added!\n");
 		}
 	}
 
@@ -185,15 +207,36 @@ public class Main{
 			System.out.println("Year");
 			int year=sc.nextInt();
 			
-			Date date=control.addNewDate(day, month, year);
-			
-			control.addEventToWetland(type, host, description, price, date);
+			control.addEventToWetland(type, host, description, price, day, month, year);
+			System.out.println("Event has been created!\n");
 		}
 	}
 	
 	/** This method shows information for all wetlands
 	*/
 	public void showWetland(){
-		control.getWetlands();
+		System.out.println(control.getAllWetlands());
+	}
+	
+	/** This method shows the wetland with the least population of flora
+	*/
+	public void showLeastFlora(){
+		System.out.println("The wetland with the least flora population is: "+control.leastFlora());
+	}
+	
+	/**This method shows all wetlands containing certain species
+	*/
+	public void showWetlandsWithSpecies(){
+		System.out.println("Type the name of the species");
+		String name=sc.next();
+		System.out.println("The wetlands containing this species are: " + control.findWetlandWithSpecies(name));
+	}
+	
+	public void showMostAnimals(){
+		System.out.println("The wetland with most animals is: "+control.mostAnimals());
+	}
+	
+	public void showAllMaintenances(){
+		System.out.println(control.getAllMaintenances());
 	}
 }
